@@ -1,0 +1,243 @@
+CREATE DATABASE BOOKSTORE;
+
+USE BOOKSTORE;
+
+CREATE TABLE Members
+(AccountID CHAR(5) PRIMARY KEY,
+FirstName CHAR(15),
+LastName CHAR(15),
+Phone CHAR(10),
+Email CHAR(30),
+Password CHAR(20))
+;
+
+CREATE TABLE Book
+(ISBN CHAR(13) PRIMARY KEY,
+AuthorFirst CHAR(15),
+AuthorLast CHAR(15),
+Title CHAR(40),
+Edition CHAR(2),
+Year YEAR(4),
+Category CHAR(3),
+Publisher CHAR(25),
+Quantity DECIMAL(3, 0),
+Price DECIMAL(8, 2))
+;
+
+CREATE TABLE Orders
+(OrderNum CHAR(5) PRIMARY KEY,
+AccountID CHAR(5),
+OrderDate DATE,
+Status CHAR(10),
+TotalPrice DECIMAL(8, 2),
+PaymentMethod CHAR(4),
+EmployeeID CHAR(5),
+ManagerID CHAR(5))
+;
+
+CREATE TABLE CreditCard
+(AccountID CHAR(5),
+CardNumber CHAR(16),
+SecurityCode CHAR(3),
+ShipStreet CHAR(15),
+ShipCity CHAR(15),
+ShipState CHAR(2),
+ShipZip CHAR(5),
+BillStreet CHAR(15),
+BillCity CHAR(15),
+BillState CHAR(2),
+BillZip CHAR(5),
+PRIMARY KEY (AccountID, CardNumber))
+;
+
+CREATE TABLE OrderLine
+(OrderNum CHAR(5),
+ISBN CHAR(13),
+Quantity DECIMAL(3, 0),
+PRIMARY KEY (OrderNum, ISBN))
+;
+
+CREATE TABLE ShoppingCart
+(CartID CHAR(5) PRIMARY KEY,
+AccountID CHAR(5),
+DateCreated DATE,
+DateLastUpdated DATE)
+;
+
+CREATE TABLE CartContents
+(CartID CHAR(5),
+ISBN CHAR(13),
+Quantity DECIMAL(2, 0),
+PRIMARY KEY (CartID, ISBN))
+;
+
+CREATE TABLE Employee
+(SSN CHAR(9) PRIMARY KEY,
+EmployeeID CHAR(5),
+IsManager CHAR(1),
+FirstName CHAR(15),
+LastName CHAR(15),
+Street CHAR(15),
+City CHAR(15),
+State CHAR(2),
+Zip CHAR(5))
+;
+
+#The following is meant to place information for each of the tables 
+#about the members
+INSERT INTO members
+Values
+('23456','John','Doe','345678901','jdoe@yahoo.com','se7en');
+INSERT INTO members
+Values
+('34567','Joe','Quincy','456789012','quincy@hotmail.com','FreshP');
+INSERT INTO members
+Values
+('45678','Tyler','Durden','567890123','tdurden@gmail.com','FightClub');
+INSERT INTO members
+Values
+('56789','James','Gordon','678901234','gothamPD@hotmail.com','Commissioner');
+INSERT INTO members
+Values
+('67890','Arnold','Schwarzenegger','789012345','t101@yahoo.com','#Hastalavista!');
+INSERT INTO members
+Values
+('89012','Selina','Kyle','901234567','catlover@yahoo.com','catl0ver');
+
+#info on the books
+INSERT INTO book
+Values
+('9001234567890','J.K.','Rowling','Harry Potter and The Chamber of Secrets','1st','1995','FIC','Scholastic','25',19.95);
+INSERT INTO book
+Values
+('9002345678901','Chuck','Palahniuk','Fight Club','2nd','1996','SAT','W.W. Norton',28,14.99);
+INSERT INTO book
+Values
+('9003456789012','Suzanne','Collins','The Hunger Games', '2nd','2008','ADV','Scholastic',10,15.95);
+INSERT INTO book
+Values
+('9004567890123','Michael','Jackson','Moonwalk','1st','1989','BIO','Doubleday',24,29.99);
+INSERT INTO book
+Values
+('9005678901234','Norman','Mailer','Armies of the Night','2nd','1968','NON','New American Library',20,22.99);
+INSERT INTO book
+Values
+('9006789012345','Harper','Lee','To Kill A Mockingbird','1st','1960','FIC','J.B. Lippincott',10,12.99);
+INSERT INTO book
+Values
+('9007890123456','Gilligan','Flynn','Gone Girl','2nd','2012','FIC','Crown Publishing Group',14,15.95);
+INSERT INTO book
+Values
+('9008901234567','Thomas','Harris','The Silence of The Lambs','1st','1988','THR','St. Martin',15,16.95);
+
+#Details on the creation of orders
+INSERT INTO orders
+Values
+('00001','23456',11/03/2014,'Ready',149.76,'Visa','#0001','#1000');
+INSERT INTO orders
+Values
+('00002','34567',11/05/2014,'Waiting',149.76,'Visa','#0002','#1000');
+INSERT INTO orders
+Values
+('00003','45678',11/07/2014,'Waiting',149.76,'Visa','#0003','#2000');
+INSERT INTO orders
+Values
+('00004','56789',11/10/2014,'Ready',149.76,'Visa','#0004','#2000');
+INSERT INTO orders
+Values
+('00005','67890',11/11/2014,'Ready',149.76,'Visa','#0005','#3000');
+INSERT INTO orders
+Values
+('00006','89012',11/12/2014,'Ready',149.76,'Visa','#0006','#3000');
+
+#details for payments
+INSERT INTO creditcard
+Values
+('23456','700012345678','123','Magnolia','Oakland','CA','90210','Magnolia','Oakland','CA','90210');
+INSERT INTO creditcard
+Values
+('34567','700023456789','456','Northstar','Huntersville','NC','28890','Northstar','Huntersville','NC','28890');
+INSERT INTO creditcard
+Values
+('45678','700034567890','789','Hartwell','Alberquerque','NM','23333','Hartwell','Alberquerque','NM','23333');
+INSERT INTO creditcard
+Values
+('56789','700045678901','001','University City','Charlotte','NC','28223','University City','Charlotte','NC','28223');
+INSERT INTO creditcard
+Values
+('67890','700056789012','002','Wyatt','Austin','TX','23111','Wyatt','Austin','TX','23111');
+INSERT INTO creditcard
+Values
+('89012','700067890123','003','Sam Furr','Concord','NC','28078','Sam Furr','Concord','NC','28078');
+
+#Details of the members using the carts
+INSERT INTO shoppingcart
+Values
+('00001','23456',12/24/1999,12/25/1999);
+INSERT INTO shoppingcart
+Values
+('00002','34567',02/21/2003,02/12/2005);
+INSERT INTO shoppingcart
+Values
+('00003','45678',02/14/2010,02/15/2011);
+INSERT INTO shoppingcart
+Values
+('00004','56789',06/19/2011,07/10/2011);
+INSERT INTO shoppingcart
+Values
+('00005','67890',03/01/2000,03/02/2000);
+INSERT INTO shoppingcart
+Values
+('00006','89012',01/01/2013,01/01/2014);
+
+#Info for the carts and potential contents
+INSERT INTO cartcontents
+Values
+('00001','1234567890123',8);
+INSERT INTO cartcontents
+Values
+('00002','2345678901234',8);
+INSERT INTO cartcontents
+Values
+('00003','3456789012345',8);
+INSERT INTO cartcontents
+Values
+('00004','4567890123456',8);
+INSERT INTO cartcontents
+Values
+('00005','5678901234567',8);
+INSERT INTO cartcontents
+Values
+('00006','6789012345678',8);
+
+
+#Information for all employees and managers
+INSERT INTO employee
+Values
+('123456789','#1000','Y','Spongebob','Squarepants','Harris','Charlotte','NC','23383');
+INSERT INTO employee
+Values
+('234567890','#2000','Y','James','Hunt','Northstar','Huntersville','NC','28078');
+INSERT INTO employee
+Values
+('345678901','#3000','Y','Nikki','Lauda','Blossom','Cornelius','NC','28078');
+INSERT INTO employee
+Values
+('456789012','#0001','N','Bono','Mardsen','Haven','Los Angeles','CA','90210');
+INSERT INTO employee
+Values
+('567890123','#0002','N','Walter','White','Harriot','Dallas','TX','24331');
+INSERT INTO employee
+Values
+('678901234','#0003','N','Skyler','Lambert','Harriot','Dallas','TX','24331');
+INSERT INTO employee
+Values
+('789012345','#0004','N','Pete','Zallinski','Faye','Long Beach','CA','34561');
+INSERT INTO employee
+Values
+('890123456','#0005','N','Mike','Sullivan','Daughtry','Albany','NY','12567');
+INSERT INTO employee
+Values
+('901234567','#0006','N','Michael','Stone','Church','Philidelphia','PA','14578');
+
+
