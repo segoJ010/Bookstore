@@ -1,0 +1,84 @@
+CREATE DATABASE BOOKSTORE;
+
+USE BOOKSTORE;
+
+CREATE TABLE Members
+(AccountID CHAR(5) PRIMARY KEY,
+FirstName CHAR(15),
+LastName CHAR(15),
+Phone CHAR(10),
+Email CHAR(30),
+Password CHAR(20))
+;
+
+CREATE TABLE Book
+(ISBN CHAR(13) PRIMARY KEY,
+AuthorFirst CHAR(15),
+AuthorLast CHAR(15),
+Title CHAR(40),
+Edition CHAR(2),
+Year YEAR(4),
+Category CHAR(3),
+Publisher CHAR(25),
+Quantity DECIMAL(3, 0),
+Price DECIMAL(8, 2))
+;
+
+CREATE TABLE Orders
+(OrderNum CHAR(5) PRIMARY KEY,
+AccountID CHAR(5),
+OrderDate DATE,
+Status CHAR(10),
+TotalPrice DECIMAL(8, 2),
+PaymentMethod CHAR(4),
+EmployeeID CHAR(5),
+ManagerID CHAR(5))
+;
+
+CREATE TABLE CreditCard
+(AccountID CHAR(5),
+CardNumber CHAR(16),
+SecurityCode CHAR(3),
+ShipStreet CHAR(15),
+ShipCity CHAR(15),
+ShipState CHAR(2)
+ShipZip CHAR(5),
+BillStreet CHAR(15),
+BillCity CHAR(15),
+BillState CHAR(2),
+BillZip CHAR(5),
+PRIMARY KEY (AccountID, CardNumber))
+;
+
+CREATE TABLE OrderLine
+(OrderNum CHAR(5),
+ISBN CHAR(13),
+Quantity DECIMAL(3, 0),
+PRIMARY KEY (OrderNum, ISBN))
+;
+
+CREATE TABLE ShoppingCart
+(CartID CHAR(5) PRIMARY KEY,
+AccountID CHAR(5),
+DateCreated DATE,
+DateLastUpdated DATE)
+;
+
+CREATE TABLE CartContents
+(CartID CHAR(5),
+ISBN CHAR(13),
+Quantity DECIMAL(2, 0),
+PRIMARY KEY (CartID, ISBN))
+;
+
+CREATE TABLE Employee
+(SSN CHAR(9) PRIMARY KEY,
+EmployeeID CHAR(5),
+IsManager CHAR(1),
+FirstName CHAR(15),
+LastName CHAR(15),
+Street CHAR(15),
+City CHAR(15),
+State CHAR(2),
+Zip CHAR(5))
+;
